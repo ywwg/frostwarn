@@ -105,7 +105,7 @@ if __name__ == '__main__':
         opts, args = getopt.getopt(sys.argv[1:],
                                    "fs:", ["force", "secret_file"])
     except getopt.GetoptError:
-        usage()
+        print("-f to force, and -s or --secret_file (required)")
         sys.exit(1)
 
     secret_file = ""
