@@ -143,7 +143,7 @@ if __name__ == '__main__':
 
     forecast_temps = get_forecast()
     temp_list = ", ".join([str(t) for t in forecast_temps])
-    did_email = False
+    should_email = False
     if force:
         print("forced, sending")
         send_email("(forced) " + temp_list, secrets)
@@ -151,8 +151,10 @@ if __name__ == '__main__':
 
     for t in forecast_temps:
         if t <= FROST_WARN_THRESHOLD:
-            did_email = True
-            print("detected a frost event, emailing")
-            send_email(temp_list, secrets)
-    if not did_email:
+            should_email = True
+            break
+    if should_email:
+        print("detected a frost event, emailing")
+        send_email(temp_list, secrets)
+    else:
         print("No frost, no email")
